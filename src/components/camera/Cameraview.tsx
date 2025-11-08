@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
 import { Camera, AlertCircle, Loader } from 'lucide-react';
-import { useCamera } from '../../hooks/useCamera';
+import { useCamera } from '../../hooks/Usecamera';
 import { useTranslation } from '../../contexts/TranslationContext';
-import { signLanguageService } from '../../services/signLanguageService';
+import { signlanguage } from '../../services/signlanguage';
 
 // Define expected structure of the detection result
 interface SignDetectionResult {
@@ -25,7 +25,7 @@ const Cameraview: React.FC = () => {
   const { addMessage, isProcessing, setIsProcessing } = useTranslation();
 
   useEffect(() => {
-    signLanguageService.initialize();
+    signlanguage.initialize();
   }, []);
 
   const handleDetectSign = async (): Promise<void> => {
@@ -34,7 +34,7 @@ const Cameraview: React.FC = () => {
 
     setIsProcessing(true);
     try {
-      const result: SignDetectionResult = await signLanguageService.detectSign(frame);
+      const result: SignDetectionResult = await signlanguage.detectSign(frame);
       addMessage('detected', result.sign, {
         confidence: result.confidence,
         source: 'camera',
